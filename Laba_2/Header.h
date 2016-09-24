@@ -3,27 +3,31 @@
 #include <conio.h>
 #include <fstream>
 #include <windows.h>
+#include <string>
 #pragma warning(disable: 4996) 
 #define _CRT_SECURE_NO_WARNINGS
 using namespace std;
-const int N = 6;
-
+const int Max_Len = 256;
 struct Stek
 {
 	char *text;
 	Stek *next;
 };
 
-void Print(ifstream& Text);
+void Print(fstream& Text);
 
 void push(char* info, Stek *& Stringns);
 
-char *pop(Stek *& Stringns);
+void pop(Stek *& Stringns);
 
-void LoadFileToStek(ifstream& file, Stek *& Stringns);
+void LoadFileToStek(Stek *& Stringns, string name, string road);
 
 void Renumber(Stek *& Stringns);
 
 char *ChangeName(char *Name1);
 
 void Purge(Stek *& Stringns);
+
+void LinePrint(void);
+
+void ListofFiles(void);
