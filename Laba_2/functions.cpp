@@ -12,7 +12,7 @@ void Print(fstream & Text)
 	Text.flush();
 }
 
-void push(char *info, Stek *& Stringns)
+void push(char *info, Stek *& Stringns)//Add new element  of stack
 {
 	Stek *tmp = new Stek;
 	tmp->text = info;
@@ -20,7 +20,7 @@ void push(char *info, Stek *& Stringns)
 	Stringns = tmp;
 }
 
-void pop(Stek *& Stringns)
+void pop(Stek *& Stringns)//Extract element of stack
 {
 	if (Stringns == NULL)
 	{
@@ -30,36 +30,36 @@ void pop(Stek *& Stringns)
 	Stek *tmp = Stringns;
 	Stringns = tmp->next;
 	cout << tmp->text << endl;;
-	delete tmp;
+	delete tmp; // deleting element of stack
 	return;
 }
 
 void LoadFileToStek(Stek *& Stringns, string name, string road)
 {
 	Stringns = NULL;
-	int i = 0;
-	char c;
+	int i = 0;	//counter
+	char c;		// for reading
 	fstream file(road + name);
 	file.seekg(-1, ios::end);
-	if ((c = file.get()) != '\n')
+	if ((c = file.get()) != '\n') //checking '\n' 
 	{
 		file.seekg(0, ios::end);
-		file << '\n';
+		file << '\n';	// Add '\n'
 	}
 	file.seekg(0, ios::beg);
 	while (file.good())
 	{
-		c = file.get();
+		c = file.get();	//reading
 		++i;
 
 		if (c == '\n' || file.eof())
 		{
 			if (!file.good())
 				break;
-			char *arr = new char[i + 1];
+			char *arr = new char[i + 1];//create array
 			file.seekg(-i - 1, ios::cur);
-			file.getline(arr, i);
-			push(arr, Stringns);
+			file.getline(arr, i);//reading string
+			push(arr, Stringns);//push sting into stack
 			i = 0;
 		}
 	}
@@ -69,15 +69,14 @@ void LoadFileToStek(Stek *& Stringns, string name, string road)
 
 void Renumber(Stek *&Strings)
 {
-	int i = 1, SizeString= 0;
-	int Number;
+	int i = 1;// i - Number of String	
+	int Number;// Number - figure in number
 	int count = 0;
 	Stek *p = Strings;
 
 	while (p != NULL)
 	{
 		Number = i;
-		SizeString = sizeof(p->text);
 		///////////////////////////Рахуємо кількість цифр в числі
 		while (( Number % 10) != 0)
 		{
@@ -87,44 +86,24 @@ void Renumber(Stek *&Strings)
 		//////////////////////////
 		char *a = new char[(Number + 2 + sizeof(p->text)) * sizeof(char*)];
 
-		sprintf(a, "%i: ", i);
+		sprintf(a, "%i: ", i);// Modification string : Add in string "a" number of string
 
-		sprintf(a, "%s%s", a, p->text);
+		sprintf(a, "%s%s", a, p->text);// Modification string: Add to "a" text from stack;
 
-		strcpy(p->text, a);
+		strcpy(p->text, a);//Add "a" to stack
 
-		p = p->next;
-		i++;
+		p = p->next;//next element
+		i++;//Number of next string
 	}
 }
 
-void Purge(Stek *& Stringns)
+void Purge(Stek *& Stringns)// Purge all stack
 {
 	while (Stringns != NULL)
 	{
-		pop(Stringns);
+		pop(Stringns);//extracting top element
 	}
 	delete[] Stringns;
-}
-
-char *ChangeName(char *Name1)
-{
-	if (Name1[0] == 'T')
-	{
-		char * LastName = "Text.txt";
-		return LastName;
-	}
-	else if(Name1[0] == 'I')
-	{
-		char * LastName = "Info.txt";
-		return LastName;
-	}
-	else
-	{
-		cout << "Wrong name";
-		return 0;
-	}
-
 }
 
 void LinePrint(void)
@@ -135,7 +114,7 @@ void LinePrint(void)
 
 void ListofFiles(void)
 {
-	WIN32_FIND_DATAA FindFileData;
+	WIN32_FIND_DATAA FindFileData; // function for searching files
 
 	HANDLE hSearch;
 
@@ -145,9 +124,9 @@ void ListofFiles(void)
 
 	cout << "\t\t\t\t\tRESULTS:" << endl;
 
-	//Пошук файлів
+	//Searching files
 
-	hSearch = FindFirstFileA(("d:\\Visual Studio C++ Projects\\Laba_2\\Laba_2\\*.txt"), &FindFileData);
+	hSearch = FindFirstFileA(("d:\\Visual Studio C++ Projects\\Laba_2\\Laba_2\\*.txt"), &FindFileData); // Way to directory
 
 	if (hSearch == INVALID_HANDLE_VALUE)
 	{
@@ -157,9 +136,8 @@ void ListofFiles(void)
 	{
 		do
 		{
-
-			printf("%s\n", FindFileData.cFileName);
-		} while (FindNextFileA(hSearch, &FindFileData));
+			printf("%s\n", FindFileData.cFileName);			// Print files
+		} while (FindNextFileA(hSearch, &FindFileData));	//Search next file
 		FindClose(hSearch);
 	}
 }

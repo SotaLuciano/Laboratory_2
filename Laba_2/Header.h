@@ -24,8 +24,6 @@ void LoadFileToStek(Stek *& Stringns, string name, string road);
 
 void Renumber(Stek *& Stringns);
 
-char *ChangeName(char *Name1);
-
 void Purge(Stek *& Stringns);
 
 void LinePrint(void);

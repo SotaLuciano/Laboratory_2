@@ -5,12 +5,12 @@ void main()
 		LinePrint();
 
 		Stek *Stringns = NULL;
-
+		// Print list of all files in directory
 		ListofFiles();
 
-		string road = "d:\\Visual Studio C++ Projects\\Laba_2\\Laba_2\\";
-
-		char choise;
+		string road = "d:\\Visual Studio C++ Projects\\Laba_2\\Laba_2\\"; // Way to directory
+		
+		char choise; // For using Yes/No
 
 		while (true)
 		{
